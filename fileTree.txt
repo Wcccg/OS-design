@@ -1,0 +1,7 @@
+C 0 0 -1 NULL floder1 NULL
+floder1 0 0 -1 C file1.2 NULL
+file1.2 1 1 6 floder1 NULL NULL
+floder1.1 0 0 -1 floder1 NULL file1.2
+floder2 0 0 -1 C file2.1 floder1
+file2.1 1 1 16 floder2 NULL NULL
+floder4 0 0 -1 C NULL floder2

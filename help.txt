@@ -1,0 +1,10 @@
+dir             展示当前目录
+cd ...          路径跳转
+showMem         展示内存信息
+showDisk        展示磁盘信息
+md x            新建文件夹 x
+create x        新建文件 x
+del x           删除 x
+rename x        重命名 x
+run x           打开或执行文件 x
+help            查看帮助
