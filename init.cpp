@@ -2,6 +2,10 @@
 #include "dataStruct.cpp"
 using namespace std;
 
+node *findNode(node *n, string name);
+node *initTree();
+node* init();
+
 node *findNode(node *n, string name)
 {
     if (n == NULL || name == "NULL")

@@ -2,6 +2,22 @@
 #include "init.cpp"
 using namespace std;
 
+int getPosition();
+string getPath(node *n, string str);
+bool runExit();
+void runDir(node *n);
+void runRun(node *n, string str);
+node *runCd(node *n, string str);
+void showMem();
+void showDisk();
+void runDel(node *n, string str);
+void runMd(node *n, string str);
+void runCreate(node *n, string str);
+void runRename(node *n, string str);
+void runHelp();
+void updateFile(node *n);
+void run(node *n, node *root);
+
 int getPosition()
 {
     return rand() % 900;
