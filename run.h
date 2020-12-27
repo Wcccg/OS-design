@@ -9,17 +9,17 @@
 using namespace std;
 
 int getPosition();
-string getPath(node *n, string str);
-bool runExit();
-void runDir(node *n);
-node *runCd(node *n, string str);
-void showMem();
-void showDisk();
-void runMd(node *n, string str);
-void runHelp();
-void updateFile(node *n);
-void runClose(node *n, string str);
-void run(node *n, node *root);
+string getPath(node *n, string str);        // 返回当前路径
+bool runExit();                             // 退出 run()
+void runDir(node *n);                       // 显示当前路径下文件以及子文件夹
+node *runCd(node *n, string str);           // 路径跳转
+void showMem();                             // 显示内存分配情况
+void showDisk();                            // 显示磁盘分配情况
+void runMd(node *n, string str);            // 新建文件夹
+void runHelp();                             // 显示帮助文档
+void updateFile(node *n);                   // 更新目录存储文件
+void runClose(node *n, string str);         // 从内存关闭文件
+void run(node *n, node *root);              // 运行命令行窗口
 
 int getPosition()
 {
@@ -221,17 +221,29 @@ void run(node *n, node *root)
             cout << "Invalid command." << endl;
     }
     else if (x == "showMem" && y == "")
+    {
         showMem();
+    }
     else if (x == "showDisk" && y == "")
+    {
         showDisk();
+    } 
     else if (x == "del" && y != "")
+    {
         runDel(n, y);
+    }
     else if (x == "md" && y != "")
+    {
         runMd(n, y);
+    }
     else if (x == "create" && y != "")
+    {
         runCreate(n, y);
+    }
     else if (x == "help" && y == "")
+    {
         runHelp();
+    }
     else
         cout << "Invalid command." << endl;
     freopen("fileTree.txt", "w", stdout);

@@ -3,6 +3,4 @@ File1 1 4 919 C NULL NULL FT1
 Floder1 0 0 -1 C File2 File1 
 File2 1 4 775 Floder1 NULL NULL It's_a_test.
 File3 1 4 913 C NULL Floder1 itisatest.
-T1.2 1 4 699 C NULL File3 It's_a_test.
-T1.1 1 4 -1 C NULL T1.2 It's_a_test.
-T1.2 1 4 -1 C NULL T1.1 It's_a_test.
+T1.2 1 4 142 C NULL File3 It's_a_test.
