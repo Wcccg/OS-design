@@ -1,3 +1,5 @@
+#ifndef DISK_H_
+#define DISK_H_
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -175,3 +177,5 @@ void show_disk()
 //     system("pause");
 //     return 0;
 // }
+
+#endif

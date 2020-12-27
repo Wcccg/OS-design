@@ -6,5 +6,6 @@ md x            新建文件夹 x
 create x        新建文件 x
 del x           删除 x
 rename x        重命名 x
-run x           打开或执行文件 x
+open x          打开或执行文件 x
+close x         关闭文件
 help            查看帮助

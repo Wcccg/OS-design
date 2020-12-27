@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#ifndef DATASTRUCT_H_
+#define DATASTRUCT_H_
 using namespace std;
 
 struct node
@@ -14,3 +16,5 @@ struct node
     node *child = NULL;
     node *next = NULL;
 };
+
+#endif

@@ -1,6 +1,8 @@
+#ifndef INIT_H_
+#define INIT_H_
 #include <bits/stdc++.h>
-#include "disk.cpp"
-#include "dataStruct.cpp"
+#include "disk.h"
+#include "dataStruct.h"
 using namespace std;
 
 node *findNode(node *n, string name);
@@ -89,3 +91,5 @@ node* init()
     root = initTree();
     return root;
 }
+
+#endif

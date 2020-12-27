@@ -1,7 +1,7 @@
-C 0 0 -1 NULL floder1 NULL 
-floder1 0 0 -1 C floder1.1 NULL 
-floder1.1 0 0 -1 floder1 NULL NULL 
-floder2 0 0 -1 C file2.1 floder1 
-file2.1 1 1 16 floder2 NULL NULL TTTT
-floder4 0 0 -1 C NULL floder2 
-TTT 1 4 619 C NULL floder4 tt1
+C 0 0 -1 NULL File1 NULL 
+File1 1 4 919 C NULL NULL FT1
+Floder1 0 0 -1 C File2 File1 
+File2 1 4 775 Floder1 NULL NULL It's_a_test.
+File3 1 4 913 C NULL Floder1 itisatest.
+TT 1 4 107 C NULL File3 TTT
+T 1 4 979 C NULL TT 123

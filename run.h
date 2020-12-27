@@ -1,20 +1,20 @@
+#ifndef RUN_H_
+#define RUN_H_
 #include <bits/stdc++.h>
-#include "init.cpp"
-#include "memory.cpp"
+#include "init.h"
+#include "memory.h"
+#include "THrun.h"
+#include "thread.h"
 using namespace std;
 
 int getPosition();
 string getPath(node *n, string str);
 bool runExit();
 void runDir(node *n);
-void runRun(node *n, string str);
 node *runCd(node *n, string str);
 void showMem();
 void showDisk();
-void runDel(node *n, string str);
 void runMd(node *n, string str);
-void runCreate(node *n, string str);
-void runRename(node *n, string str);
 void runHelp();
 void updateFile(node *n);
 void runClose(node *n, string str);
@@ -63,25 +63,6 @@ void runDir(node *n)
     }
 }
 
-void runRun(node *n, string str)
-{
-    node *n1 = findNode(n, str);
-    if (!n1)
-    {
-        cout << "Invalid command." << endl;
-        return;
-    }
-    if (n1->parent == n)
-    {
-        pair<string, int> temp_pair;
-        alloc_thread(str, 4, 2, temp_pair.first);
-        temp_pair = find_file(str);
-        cout << temp_pair.first << endl;
-    }
-    else
-        cout << "Invalid command." << endl;
-}
-
 node *runCd(node *n, string str)
 {
     if (str == "../")
@@ -100,7 +81,7 @@ node *runCd(node *n, string str)
         cout << "Invalid command." << endl;
         return n;
     }
-    else if (n1->parent == n)
+    else if (n1->parent == n && !n1->isFile)
         return n1;
     else
     {
@@ -119,40 +100,6 @@ void showDisk()
     show_disk();
 }
 
-void runDel(node *n, string str)
-{
-    node *n1 = findNode(n, str);
-    if (!n1)
-    {
-        cout << "Invalid command." << endl;
-        return;
-    }
-    if (!n1->parent)
-    {
-        cout << "Invalid command." << endl;
-        return;
-    }
-    if (n1->parent == n && !n1->child && !n1->state)
-    {
-        del_file(str);
-        node *n2 = n->child;
-        while (n2->next != n1 && n2->next)
-            n2 = n2->next;
-        if (!n2->next)
-            n2 = NULL;
-        if (n2)
-            n2->next = n1->next;
-        if (n->child == n1)
-        {
-            n->child = n1->next;
-            n->ch = n1->next->name;
-        }
-        free(n1);
-    }
-    else
-        cout << "Invalid command." << endl;
-}
-
 void runMd(node *n, string str)
 {
     node *n1 = new node;
@@ -167,41 +114,6 @@ void runMd(node *n, string str)
             n = n->next;
         n->next = n1;
     }
-}
-
-void runCreate(node *n, string str)
-{
-    node *n1 = new node;
-    n1->name = str;
-    n1->parent = n;
-    n1->isFile = 1;
-    n1->size = 4;
-    cout << "Please input a string:";
-    string s;
-    cin >> s;
-    n1->position = create_file(str, 4, 1, s);
-    n1->con = s;
-    if (!n->child)
-    {
-        n->child = n1;
-        n->ch = str;
-    }
-    else
-    {
-        n = n->child;
-        while (n->next)
-            n = n->next;
-        n->next = n1;
-    }
-}
-
-void runRename(node *n, string str)
-{
-    node *n1 = findNode(n, str);
-    if (n1->parent == n && !n1->state)
-        n1->name = str;
-    else
-        cout << "Invalid command." << endl;
 }
 
 void runHelp()
@@ -267,7 +179,10 @@ void run(node *n, node *root)
     ss >> x;
     if (ss)
         ss >> y;
-    if (x == "exit" && y == "")
+    if (x == "")
+    {
+    }
+    else if (x == "exit" && y == "")
     {
         if (runExit())
             return;
@@ -276,9 +191,9 @@ void run(node *n, node *root)
     {
         runClose(n, y);
     }
-    else if (x == "run" && y != "")
+    else if (x == "open" && y != "")
     {
-        runRun(n, y);
+        run_thread(n, y);
     }
     else if (x == "dir" && y == "")
     {
@@ -297,13 +212,11 @@ void run(node *n, node *root)
     else if (x == "showDisk" && y == "")
         showDisk();
     else if (x == "del" && y != "")
-        runDel(n, y);
+        del_thread(n, y);
     else if (x == "md" && y != "")
         runMd(n, y);
     else if (x == "create" && y != "")
-        runCreate(n, y);
-    else if (x == "rename" && y != "")
-        runRename(n, y);
+        create_thread(n, y);
     else if (x == "help" && y == "")
         runHelp();
     else
@@ -313,3 +226,5 @@ void run(node *n, node *root)
     freopen("con", "w", stdout);
     run(n, root);
 }
+
+#endif

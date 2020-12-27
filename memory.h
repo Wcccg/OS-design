@@ -1,3 +1,5 @@
+#ifndef MEMORY_H_
+#define MEMORY_H_
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,7 +10,8 @@ typedef struct MCB
 	int size = 1;			  //占用大小
 	int type = -1;			  //文件类型
 	string content = "null";  //内容
-	bool is_empty = true;
+	int is_empty = 1;
+	int recent_used = 0;
 
 } MCB;
 MCB mcb[64]; //64块
@@ -86,31 +89,43 @@ int LRU()
 		return LRU();
 }
 
-int alloc_file(string str, int size, int type, string con)
+int LRU2(int n)
 {
-	while (free_nums() < size)
-		LRU();
-	int i = 0;
+	int x;
+	int MAX = -1;
+	for (int i = n; i < n + 8; i++)
+		MAX = max(MAX, mcb[i].recent_used);
+	for (int i = 0; i < n + 8; i++)
+	{
+		if (MAX == mcb[i].recent_used)
+		{
+			mcb[i].recent_used = 0;
+			x = i;
+		}
+		else
+			mcb[i].recent_used++;
+	}
+	return x;
+}
+
+void alloc_file(string str, int size, int type, string con, int n)
+{
+	for (int i = n; i < n + 8; i++)
+		mcb[i].recent_used = 0;
 	while (size)
 	{
-		if (mcb[i].is_empty)
-		{
-			size--;
-			mcb[i].is_empty = 1;
-			mcb[i + j].name = str;
-
-			
-			mcb[i + j].size = size;
-			mcb[i + j].is_empty = false;
-			mcb[i + j].type = type;
-			mcb[i + j].content = con;
-		}
-		i++;
+		int x = LRU2(n);
+		size--;
+		mcb[x].name = str;
+		mcb[x].size = size;
+		mcb[x].is_empty = -1;
+		mcb[x].type = type;
+		mcb[x].content = con;
 	}
 }
 
 //为线程分配内存块，返回分配的第一个内存块
-int alloc_thread(string thread_name, int size = 4, int type = 2, string content = "null")
+int alloc_thread(string thread_name)
 {
 	int i;
 	for (i = 0; i < 64; i = i + 8)
@@ -124,17 +139,12 @@ int alloc_thread(string thread_name, int size = 4, int type = 2, string content 
 		i = k * 8;
 	}
 	page[i / 8].name = thread_name;
-	page[i / 8].size = size;
-	page[i / 8].type = type;
 	page[i / 8].recent_used = 1;
 	page[i / 8].is_empty = false;
 	for (int j = 0; j < 8; j++)
 	{
 		mcb[i + j].name = thread_name;
-		mcb[i + j].size = size;
 		mcb[i + j].is_empty = false;
-		mcb[i + j].type = type;
-		mcb[i + j].content = content;
 	}
 	return i;
 }
@@ -158,7 +168,7 @@ void free(string name)
 				mcb[i + j].is_empty = true;
 				mcb[i + j].type = -1;
 				mcb[i + j].content = "null";
-			};
+			}
 		}
 	}
 }
@@ -237,3 +247,5 @@ int alloc_datafile()
 // 	system("pause");
 // 	return 0;
 // }
+
+#endif

@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "run.cpp"
+#include "run.h"
 using namespace std;
 
 int main()
