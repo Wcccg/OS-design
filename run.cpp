@@ -66,8 +66,9 @@ void runRun(node *n, string str)
     node *n1 = findNode(n, str);
     if (n1->parent == n)
     {
-        cout << str << " start running." << endl;
-        // ÔËÐÐ³ÌÐò
+        pair<string, int> temp_pair;
+        temp_pair = find_file(str);
+        cout << temp_pair.first << endl;
     }
     else
         cout << "Invalid command." << endl;
@@ -106,6 +107,7 @@ void showMem()
 
 void showDisk()
 {
+    show_disk();
 }
 
 void runDel(node *n, string str)
@@ -123,6 +125,7 @@ void runDel(node *n, string str)
     }
     if (n1->parent == n && !n1->child && !n1->state)
     {
+        del_file(str);
         node *n2 = n->child;
         while (n2->next != n1 && n2->next)
             n2 = n2->next;
@@ -163,8 +166,12 @@ void runCreate(node *n, string str)
     n1->name = str;
     n1->parent = n;
     n1->isFile = 1;
-    n1->size = 1;
-    n1->position = getPosition();
+    n1->size = 4;
+    cout << "Please input a string:";
+    string s;
+    cin >> s;
+    n1->position = create_file(str, 4, 1, s);
+    n1->con = s;
     if (!n->child)
     {
         n->child = n1;
@@ -215,13 +222,16 @@ void updateFile(node *n)
         cout << "NULL";
     cout << ' ' << n->ch << ' ';
     if (n == n1 || !n1)
-        cout << "NULL" << endl;
+        cout << "NULL" << ' ';
     else
     {
         while (n1->next != n && n1 ->next)
             n1 = n1->next;
-        cout << n1->name << endl;
+        cout << n1->name << ' ';
     }
+    if (n->isFile)
+        cout << n->con;
+    cout << endl;
     updateFile(n->child);
     updateFile(n->next);
 }

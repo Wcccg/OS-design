@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "disk.cpp"
 #include "dataStruct.cpp"
 using namespace std;
 
@@ -72,6 +73,12 @@ node *initTree()
         n1 = findNode(root, x);
         if (n1)
             n1->next = n;
+        if (n->isFile == 1)
+        {
+            ss >> x;
+            n->con = x;
+            create_file(n->name, 4, 1, n->con)
+        }
     }
     return root;
 }
