@@ -77,7 +77,7 @@ node *initTree()
         {
             ss >> x;
             n->con = x;
-            create_file(n->name, 4, 1, n->con)
+            create_file(n->name, 4, 1, n->con);
         }
     }
     return root;

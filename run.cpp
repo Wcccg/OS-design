@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "init.cpp"
+#include "memory.cpp"
 using namespace std;
 
 int getPosition();
@@ -16,6 +17,7 @@ void runCreate(node *n, string str);
 void runRename(node *n, string str);
 void runHelp();
 void updateFile(node *n);
+void runClose(node *n, string str);
 void run(node *n, node *root);
 
 int getPosition()
@@ -64,9 +66,15 @@ void runDir(node *n)
 void runRun(node *n, string str)
 {
     node *n1 = findNode(n, str);
+    if (!n1)
+    {
+        cout << "Invalid command." << endl;
+        return;
+    }
     if (n1->parent == n)
     {
         pair<string, int> temp_pair;
+        alloc_thread(str, 4, 2, temp_pair.first);
         temp_pair = find_file(str);
         cout << temp_pair.first << endl;
     }
@@ -103,6 +111,7 @@ node *runCd(node *n, string str)
 
 void showMem()
 {
+    show_mcb();
 }
 
 void showDisk()
@@ -204,6 +213,17 @@ void runHelp()
         cout << s << endl;
 }
 
+void runClose(node *n, string str)
+{
+    if (Mfind(str))
+    {
+        free(str);
+        cout << str << " close succeed." << endl;
+    }
+    else
+        cout << "Invalid command." << endl;
+}
+
 void updateFile(node *n)
 {
     if (n == NULL)
@@ -225,7 +245,7 @@ void updateFile(node *n)
         cout << "NULL" << ' ';
     else
     {
-        while (n1->next != n && n1 ->next)
+        while (n1->next != n && n1->next)
             n1 = n1->next;
         cout << n1->name << ' ';
     }
@@ -251,6 +271,10 @@ void run(node *n, node *root)
     {
         if (runExit())
             return;
+    }
+    else if (x == "close" && y != "")
+    {
+        runClose(n, y);
     }
     else if (x == "run" && y != "")
     {
