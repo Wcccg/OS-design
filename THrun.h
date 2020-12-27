@@ -6,6 +6,7 @@
 using namespace std;
 
 void runCreate(node *n, string str);
+void runCreate1(node *n, string str);
 void runDel(node *n, string str);
 void runOpen(node *n, string str);
 
@@ -22,6 +23,33 @@ void runCreate(node *n, string str)
     for (int i = 0; i < s1.size(); i++)
         if (s1[i] != ' ')
             s += s1[i];
+    int x = alloc_thread(str);
+    alloc_file(str, 4, 2, s, x);
+    n1->position = create_file(str, 4, 1, s);
+    free(str);
+    n1->con = s;
+    if (!n->child)
+    {
+        n->child = n1;
+        n->ch = str;
+    }
+    else
+    {
+        n = n->child;
+        while (n->next)
+            n = n->next;
+        n->next = n1;
+    }
+}
+
+void runCreate1(node *n, string str)
+{
+    node *n1 = new node;
+    n1->name = str;
+    n1->parent = n;
+    n1->isFile = 1;
+    n1->size = 4;
+    string s = "It's_a_test.";
     int x = alloc_thread(str);
     alloc_file(str, 4, 2, s, x);
     n1->position = create_file(str, 4, 1, s);

@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 #include "init.h"
 #include "memory.h"
+#include "runModule.h"
 #include "THrun.h"
 #include "thread.h"
 using namespace std;
@@ -182,6 +183,18 @@ void run(node *n, node *root)
     if (x == "")
     {
     }
+    else if (x == "Test1" && y == "")
+    {
+        Test1(n);
+    }
+    else if (x == "Test2" && y == "")
+    {
+        Test2(n);
+    }
+    else if (x == "Test3" && y == "")
+    {
+        Test3(n);
+    }
     else if (x == "exit" && y == "")
     {
         if (runExit())
@@ -193,7 +206,7 @@ void run(node *n, node *root)
     }
     else if (x == "open" && y != "")
     {
-        run_thread(n, y);
+        runOpen(n, y);
     }
     else if (x == "dir" && y == "")
     {
@@ -212,11 +225,11 @@ void run(node *n, node *root)
     else if (x == "showDisk" && y == "")
         showDisk();
     else if (x == "del" && y != "")
-        del_thread(n, y);
+        runDel(n, y);
     else if (x == "md" && y != "")
         runMd(n, y);
     else if (x == "create" && y != "")
-        create_thread(n, y);
+        runCreate(n, y);
     else if (x == "help" && y == "")
         runHelp();
     else

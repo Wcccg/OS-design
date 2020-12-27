@@ -59,7 +59,7 @@ void show_mcb()
 
 bool Mfind(string str)
 {
-	for (int i = 0; i < 64; i *= 8)
+	for (int i = 0; i < 64; i++)
 		if (mcb[i].name == str)
 			return 1;
 	return 0;

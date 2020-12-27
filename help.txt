@@ -8,4 +8,5 @@ del x           删除 x
 rename x        重命名 x
 open x          打开或执行文件 x
 close x         关闭文件
+Test1、Test2    测试功能
 help            查看帮助

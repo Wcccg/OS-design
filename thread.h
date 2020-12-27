@@ -4,28 +4,61 @@
 #include <mutex>
 #include <windows.h>
 #include "run.h"
+#include <string>
 #include "THrun.h"
 #include <iostream>
 using namespace std;
 
-mutex m1, m2;
+mutex m;
+mutex m1, m2, m3;
+
 void create_thread(node *n, string y)
 {
-	m1.lock();
-	runCreate(n, y);
-	m1.unlock();
+	m2.lock();
+	Sleep(5000);
+	runCreate1(n, y);
+	m2.unlock();
+	cout << y << " create finished." << endl;
 }
 
 void del_thread(node *n, string y)
 {
 	m2.lock();
+	m3.lock();
 	runDel(n, y);
+	m3.unlock();
 	m2.unlock();
+	cout << y << " delete finished." << endl;
 }
 
 void run_thread(node *n, string str)
 {
 	runOpen(n, str);
+	cout << str << " open finished." << endl;
+}
+
+void test_th1()
+{
+	m.lock();
+	for (int i = 0; i < 50; i++)
+	{
+		Sleep(100);
+		cout << i << ' ';
+		if ((i + 1) % 10 == 0)
+			cout << endl;
+	}
+	m.unlock();
+}
+
+void test_th2()
+{
+	for (int i = 0; i < 50; i++)
+	{
+		Sleep(100);
+		cout << i << ' ';
+		if ((i + 1) % 10 == 0)
+			cout << endl;
+	}
 }
 
 #endif
