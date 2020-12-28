@@ -2,13 +2,17 @@
 #define THRUN_H_
 #include "dataStruct.h"
 #include "memory.h"
+#include "disk.h"
 #include "init.h"
 using namespace std;
 
-void runCreate(node *n, string str);
+void runCreate(node *n, string str);        // 新建文件
 void runCreate1(node *n, string str);
-void runDel(node *n, string str);
-void runOpen(node *n, string str);
+void runDel(node *n, string str);           // 删除文件或文件夹
+void runOpen(node *n, string str);          // 将文件调入内存并显示
+void showMem();                             // 显示内存分配情况
+void showDisk();                            // 显示磁盘分配情况
+void runClose(node *n, string str);         // 从内存关闭文件
 
 void runCreate(node *n, string str)
 {
@@ -122,5 +126,28 @@ void runOpen(node *n, string str)
     else
         cout << "Invalid command." << endl;
 }
+
+void runClose(node *n, string str)
+{
+    if (Mfind(str))
+    {
+        free(str);
+        cout << str << " close succeed." << endl;
+    }
+    else
+        cout << "Invalid command." << endl;
+}
+
+
+void showMem()
+{
+    show_mcb();
+}
+
+void showDisk()
+{
+    show_disk();
+}
+
 
 #endif

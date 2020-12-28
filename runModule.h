@@ -12,6 +12,8 @@ void Test1(node *n)
     th2.join();
     thread th3(del_thread, n, "T1.1");
     th3.join();
+    thread th4(run_thread, n, "T1.2");
+    th4.join();
 }
 
 void Test2(node *n)

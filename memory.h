@@ -95,10 +95,12 @@ int LRU2(int n)
 	int MAX = -1;
 	for (int i = n; i < n + 8; i++)
 		MAX = max(MAX, mcb[i].recent_used);
-	for (int i = 0; i < n + 8; i++)
+	int flag = 1;
+	for (int i = n; i < n + 8; i++)
 	{
-		if (MAX == mcb[i].recent_used)
+		if (MAX == mcb[i].recent_used && flag)
 		{
+			flag = 0;
 			mcb[i].recent_used = 0;
 			x = i;
 		}

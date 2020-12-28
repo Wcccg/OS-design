@@ -13,12 +13,9 @@ string getPath(node *n, string str);        // 返回当前路径
 bool runExit();                             // 退出 run()
 void runDir(node *n);                       // 显示当前路径下文件以及子文件夹
 node *runCd(node *n, string str);           // 路径跳转
-void showMem();                             // 显示内存分配情况
-void showDisk();                            // 显示磁盘分配情况
 void runMd(node *n, string str);            // 新建文件夹
 void runHelp();                             // 显示帮助文档
 void updateFile(node *n);                   // 更新目录存储文件
-void runClose(node *n, string str);         // 从内存关闭文件
 void run(node *n, node *root);              // 运行命令行窗口
 
 int getPosition()
@@ -91,16 +88,6 @@ node *runCd(node *n, string str)
     }
 }
 
-void showMem()
-{
-    show_mcb();
-}
-
-void showDisk()
-{
-    show_disk();
-}
-
 void runMd(node *n, string str)
 {
     node *n1 = new node;
@@ -124,17 +111,6 @@ void runHelp()
     string s;
     while (getline(in, s))
         cout << s << endl;
-}
-
-void runClose(node *n, string str)
-{
-    if (Mfind(str))
-    {
-        free(str);
-        cout << str << " close succeed." << endl;
-    }
-    else
-        cout << "Invalid command." << endl;
 }
 
 void updateFile(node *n)

@@ -15,8 +15,8 @@ mutex m1, m2, m3;
 void create_thread(node *n, string y)
 {
 	m2.lock();
-	Sleep(5000);
 	runCreate1(n, y);
+	Sleep(3000);
 	m2.unlock();
 	cout << y << " create finished." << endl;
 }
@@ -33,8 +33,14 @@ void del_thread(node *n, string y)
 
 void run_thread(node *n, string str)
 {
+	showMem();
+	showDisk();
+	Sleep(6000);
 	runOpen(n, str);
 	cout << str << " open finished." << endl;
+	showMem();
+	showDisk();
+	runClose(n, str);
 }
 
 void test_th1()
