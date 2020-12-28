@@ -87,6 +87,8 @@ int LRU()
 	}
 	if (i == 8)
 		return LRU();
+	else
+		return 0;
 }
 
 int LRU2(int n)

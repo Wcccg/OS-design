@@ -24,7 +24,8 @@ void runCreate(node *n, string str)
     cout << "Please input a string:";
     string s, s1;
     getline(cin, s1);
-    for (int i = 0; i < s1.size(); i++)
+    int len = s1.size();
+    for (int i = 0; i < len; i++)
         if (s1[i] != ' ')
             s += s1[i];
     int x = alloc_thread(str);

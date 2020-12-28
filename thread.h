@@ -24,9 +24,7 @@ void create_thread(node *n, string y)
 void del_thread(node *n, string y)
 {
 	m2.lock();
-	m3.lock();
 	runDel(n, y);
-	m3.unlock();
 	m2.unlock();
 	cout << y << " delete finished." << endl;
 }
